@@ -22,94 +22,47 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
+/**
+ * Activity responsible for presenting highscores on a screen.
+ */
 public class LeaderboardsActivity extends AppCompatActivity {
     private ArrayList<Player> bestPlayers;
     private ArrayAdapter<Player> adapter;
     private ListView listView;
+    private DbManager dbManager;
+    private long MAX_NUMBER_OF_PLAYERS_LISTED = 5;//limit of best results displayed
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.zactivity_leaderboards);
         //Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_LONG).show();
+        dbManager = new DbManager(this);
         bestPlayers = new ArrayList<>();
         readScores();
         showRank();
     }
-
+    /**
+     * Assigns queried list of players to bestPlayers variable. Also prints highscores to a result.
+     */
     public void readScores(){
-
-        try {
-            String filename = MatchActivity.RESULTS_FILE_NAME;
-            FileInputStream fis = getApplicationContext().openFileInput(filename);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                StringTokenizer st = new StringTokenizer(line,"||");
-                String name = st.nextToken();
-                String pts = st.nextToken();
-                Player p = new Player();
-                p.setPlayerName(name);
-                p.setPoints(Integer.valueOf(pts));
-                bestPlayers.add(p);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(),getResources().getString(R.string.noResultsToShow) ,Toast.LENGTH_SHORT).show();
-        }
-        if(bestPlayers.size() > 1)
-            Collections.sort(bestPlayers,new PlayerComparator());
+        bestPlayers = dbManager.getPlayerResults(MAX_NUMBER_OF_PLAYERS_LISTED);
+        //Keep code below just in case. The sorting is done now when querying the database!
+        //Sorting list by a score using custom Comparator class.
+//        if(bestPlayers.size() > 1) {
+//            Collections.sort(bestPlayers, new PlayerComparator());//sorting list of players
+//        }
         for(int i =0; i < bestPlayers.size(); i++){
             Log.d("MATCH ACTIVITY", bestPlayers.get(i).getPlayerName() + " " + bestPlayers.get(i).getPoints());
         }
         Log.d("MATCH ACTIVITY", "odczytano zwyciezcow");
-
     }
+    /**
+     * Shows bestPlayers list on a device screen.
+     */
     public void showRank(){
         listView = (ListView)findViewById(R.id.rankingList);
         adapter = new CustomAdapter(this,R.layout.row,bestPlayers);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-//Inny sposob
-//    public void showRank(){
-//        listView = (ListView)findViewById(R.id.rankingList);
-//        adapter = new ArrayAdapter<Player>(getApplicationContext(),android.R.layout.simple_list_item_1,bestPlayers){
-//
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//                // Get the Item from ListView
-//                View view = super.getView(position, convertView, parent);
-//
-//                // Initialize a TextView for ListView each Item
-//                TextView tv = (TextView) view.findViewById(android.R.id.text1);
-//                DisplayMetrics displaymetrics = new DisplayMetrics();
-//                getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-//                int height = displaymetrics.heightPixels;
-//                int width = displaymetrics.widthPixels;
-//                tv.setWidth(400);
-//                //tv.setText(String.format("%3s.%s", String.valueOf(position + 1), tv.getText()));
-//                if(position+1 <10){
-//                    tv.setText(" " + String.valueOf(position + 1) +"."+ tv.getText());
-//                }
-//                else{
-//                    tv.setText(String.valueOf(position + 1) +"."+ tv.getText());
-//                }
-//
-//                // Set the text color of TextView (ListView Item)
-//                if(position%2==0){
-//                    tv.setTextColor(Color.rgb(255,0,0));
-//                }
-//                else{
-//                    tv.setTextColor(Color.rgb(238,0,0));
-//                }
-//
-//                // Generate ListView Item using TextView
-//                return view;
-//            }
-//        };
-//        listView.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
-//    }
-
 }

@@ -214,7 +214,6 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
@@ -228,7 +227,6 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             showFoulPopup(v);
         }
     }
-
     public void setActivePlayer(){
         for( int i = 0 ; i < howMuchPlayers ; ++i ){
             if( i == whoPlays ){
@@ -253,7 +251,6 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         colorBallMove = false;
        setActivePlayer();
     }
-
     public void updatePlayerPoints(int player, int points){
         players[player].addPoints(points);
         TextView tc = (TextView)views[player].findViewById(R.id.playerScore);
@@ -271,10 +268,6 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
-
-
-
-
     public void showAddPointPopup(View view){
         Log.d("MATCH ACTIVITY", "wejscie do metody showAddPointPopup");
 
@@ -423,16 +416,8 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                 }else{
                     activateButton(yellowBallButton, dialogListener);
                 }
-
-
-
-
-
             }
         }
-
-
-
         addPointDialog.show();
     }
     public void showFoulPopup(View view){
@@ -481,7 +466,6 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         addFoulDialog.setTitle(getApplicationContext().getResources().getString(R.string.addFoulPoints));
         addFoulDialog.show();
     }
-
     public void activateButton(ImageButton button, View.OnClickListener listener){
         button.setActivated(false);
         button.setAlpha(1.0f);
@@ -492,8 +476,6 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         button.setAlpha(0.5f);
         button.setOnClickListener(null);
     }
-
-
     public void finishGame(View view){
         Log.d("MATCH ACTIVITY", "wejscie do metody finishGame");
 
@@ -512,8 +494,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getApplicationContext().getResources().getString(R.string.okSaveScore),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        saveWinner(gameWinner);
-                        saveLoosers();
+                        saveScoresToDB();//save participants of a game to DB
                         dialog.dismiss();
                         finish();
                     }
@@ -530,97 +511,14 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         }
         return winner;
     }
-    public void saveLoosers(){
-
-        Player p;
-        for( int i = 0 ; i < howMuchPlayers ; ++i ){
-            if( players[i] != getWinner() ){
-                p = players[i];
-                if(p.getPoints() > 0){
-                    this.saveWinner(p);
-                }
-            }
-        }
-    }
-    public void saveListToFile(ArrayList<Player> bestPlayers){
-        //MainActivity.saveScore(players);
-        String filename = RESULTS_FILE_NAME;
-        FileOutputStream outputStream;
-        OutputStreamWriter outputWriter;
-        try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputWriter = new OutputStreamWriter(outputStream);
-            for(int i = 0; i < bestPlayers.size(); i++) {
-                if(i < HIGHSCORES_PERSON_LIMIT){
-                    String playerData = bestPlayers.get(i).getPlayerName() + "||" +bestPlayers.get(i).getPoints() + "\n";
-                    outputWriter.write(playerData);
-                }
-            }
-            outputWriter.close();
-            outputStream.close();
-            Log.d("MATCH ACTIVITY", "Pomyslnie zapisano zwyciezce!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Toast.makeText(getApplicationContext(), getResources().getString(R.string.successfullySaved) + gameWinner.getPlayerName(), Toast.LENGTH_LONG).show();
-    }
-    public void saveWinner(Player winner){
-        String filename = RESULTS_FILE_NAME;
-        ArrayList<Player> bestPlayers = new ArrayList<>();
-        File f = new File(filename);
-        if(!f.exists()){
-            try {
-                f.createNewFile();
-                Log.d("MATCH ACTIVITY", "Utworzylem plik");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else{
-            Log.d("MATCH ACTIVITY", "Plik juz istnial");
-        }
-
-        try {
-            FileInputStream fis = getApplicationContext().openFileInput(filename);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            String line;
-            String[] playerData;
-            Player currentPlayer;
-            //zapelnienie ArrayListy graczami
-            while ((line = bufferedReader.readLine()) != null) {
-                StringTokenizer st = new StringTokenizer(line,"||");
-                String name = st.nextToken();
-                String pts = st.nextToken();
-                currentPlayer = new Player();
-                Log.d("MATCH ACTIVITY",name );
-                Log.d("MATCH ACTIVITY", pts);
-                currentPlayer.setPlayerName(name);
-                currentPlayer.setPoints(Integer.valueOf(pts));
-                bestPlayers.add(currentPlayer);
-            }
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
-        //dodaje obecnego winnera do listy
-        bestPlayers.add(winner);
-        //sortowanie
-        if(bestPlayers.size()>1) {
-            Collections.sort(bestPlayers, new PlayerComparator());
-        }
-        saveListToFile(bestPlayers);
-    }
-
     public void decrementRedBallCount(){
         redBallCount--;
         if( redBallCount < 0 ){
             redBallCount = 0;
         }
     }
-
     public void showTable(){
         Log.d("MATCH ACTIVITY", "wejscie do metody showTable");
-
         LayoutInflater inflater = getLayoutInflater();
         View dialoglayout = inflater.inflate(R.layout.table_pattern, null);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -632,8 +530,20 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             }
         });
         builder.show();
-
     }
 
+
+    /*Saves scores of all players that participated in a game to the database. Caution: score must be greater than 0.*/
+    public void saveScoresToDB(){
+        Player p;
+        DbManager dbManager = new DbManager(this);//passing context as argument to DbManager constructor
+            for( int i = 0 ; i < howMuchPlayers ; ++i ){
+                    p = players[i];
+                    if(p.getPoints() > 0){
+                        dbManager.insertEntry(p.getPlayerName(),p.getPoints());
+                        Log.d("MATCH ACTIVITY",p.getPlayerName() + " " + p.getPoints() + " saved to a database.");
+                    }
+            }
+    }
 
 }

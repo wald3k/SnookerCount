@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         new2PlayerFrameButton = (Button)findViewById(R.id.NewFrame3Players_button);
         leaderBoardsButton = (Button)findViewById(R.id.LeaderBoards_button);
         creditsButton = (Button)findViewById(R.id.Credits_button);
-
+    //// TODO: 2017-02-08 Create option menu/button: cleaning database/ setting rank display limits etc.
 
 
     }
