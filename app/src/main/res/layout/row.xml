@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/rankingPosition"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:layout_weight="0.2"
+        android:textColor="@color/colorNapisPrim"
+        />
+
+    <TextView
+        android:id="@+id/playerNickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:layout_weight="0.60"
+        android:textColor="@color/colorNapisPrim"
+        />
+
+    <TextView
+        android:id="@+id/playerPts"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_weight="0.2"
+        android:gravity="right"
+        android:textColor="@color/colorNapisPrim"
+        />
+
+
+</TableRow>

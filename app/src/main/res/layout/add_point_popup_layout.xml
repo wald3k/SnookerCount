@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="@dimen/big_button_dimen"
+    android:background="@color/ripple_material_light"
+    android:gravity="center">
+
+    <ImageButton
+        android:id="@+id/red_ball"
+        android:padding="2dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="4dp"
+        android:src="@drawable/ball_red"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true" />
+    <ImageButton
+        android:id="@+id/yellow_ball"
+        android:padding="2dp"
+        android:layout_width="@dimen/button_dimen"
+        android:layout_height="@dimen/button_dimen"
+        android:src="@drawable/ball_yellow"
+        android:layout_margin="4dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+    <ImageButton
+        android:id="@+id/green_ball"
+        android:padding="2dp"
+        android:layout_width="@dimen/button_dimen"
+        android:layout_height="@dimen/button_dimen"
+        android:src="@drawable/ball_green"
+        android:layout_margin="4dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+    <ImageButton
+        android:id="@+id/brown_ball"
+        android:padding="2dp"
+        android:layout_width="@dimen/button_dimen"
+        android:layout_height="@dimen/button_dimen"
+        android:src="@drawable/ball_brown"
+        android:layout_margin="4dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+    <ImageButton
+        android:id="@+id/blue_ball"
+        android:padding="2dp"
+        android:layout_width="@dimen/button_dimen"
+        android:layout_height="@dimen/button_dimen"
+        android:src="@drawable/ball_blue"
+        android:layout_margin="4dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+    <ImageButton
+        android:id="@+id/pink_ball"
+        android:padding="2dp"
+        android:layout_width="@dimen/button_dimen"
+        android:layout_height="@dimen/button_dimen"
+        android:src="@drawable/ball_pink"
+        android:layout_margin="4dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+    <ImageButton
+        android:id="@+id/black_ball"
+        android:padding="2dp"
+        android:layout_width="@dimen/button_dimen"
+        android:layout_height="@dimen/button_dimen"
+        android:src="@drawable/ball_black"
+        android:layout_margin="4dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+
+</LinearLayout>

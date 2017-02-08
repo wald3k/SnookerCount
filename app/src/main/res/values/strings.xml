@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Snooker Count</string>
+    <string name="player1name">player1 name</string>
+    <string name="player2name">player2 name</string>
+    <string name="player3name">player3 name</string>
+    <string name="decrementRedBallCounter">Red balls -1</string>
+    <string name="showTable">Show table</string>
+    <string name="results">BEST RESULTS</string>
+    <string name="authors">Authors:</string>
+    <string name="author1">Waldemar Sobiecki</string>
+    <string name="author2">Paweł Nogański</string>
+    <string name="successfullySaved">Successfully saved!</string>
+    <string name="noResultsToShow">No result to show!</string>
+    <string name="twoPlayers">2 Players</string>
+    <string name="threePlayers">3 Players</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="credits">Credits</string>
+    <string name="playerName">Player Name</string>
+    <string name="playerScore">Player Score</string>
+    <string name="addPoints">Add points</string>
+    <string name="addFoulPoints">Add foul points</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="gameOver">Game Over!</string>
+    <string name="hasWon">has won!</string>
+    <string name="resultAchieved">Result:</string>
+    <string name="okSaveScore">Ok, save score!</string>
+</resources>

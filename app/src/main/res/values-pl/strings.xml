@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Snooker Count</string>
+    <string name="player1name">Pierwszy gracz</string>
+    <string name="player2name">Drugi gracz</string>
+    <string name="player3name">Trzeci gracz</string>
+    <string name="decrementRedBallCounter">Red balls -1</string>
+    <string name="showTable">Pokaz tabele</string>
+    <string name="results">Najlepsze wyniki</string>
+    <string name="authors">Autorzy:</string>
+    <string name="author1">Waldemar Sobiecki</string>
+    <string name="author2">Paweł Nogański</string>
+    <string name="successfullySaved">Zapisano pomyslnie!</string>
+    <string name="noResultsToShow">Brak wynikow do wyswietlenia!</string>
+    <string name="twoPlayers">2 graczy</string>
+    <string name="threePlayers">3 graczy</string>
+    <string name="leaderboard">Tablica wynikow</string>
+    <string name="credits">Informacje o autorach</string>
+    <string name="playerName">Nazwa gracza</string>
+    <string name="playerScore">Wynik gracza</string>
+    <string name="addFoulPoints">Określ punkty za faul</string>
+    <string name="addPoints">Dodaj punkty</string>
+    <string name="ok">Akceptuj</string>
+    <string name="cancel">Anuluj</string>
+    <string name="gameOver">Koniec gry!</string>
+    <string name="hasWon">wygrał!</string>
+    <string name="resultAchieved">Wynik: </string>
+    <string name="okSaveScore">Ok, zapisz wynik!</string>
+</resources>
