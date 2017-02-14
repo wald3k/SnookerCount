@@ -98,6 +98,10 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     boolean pinkLeft = false;
     boolean blackLeft = false;
 
+    public static final String WHO_PLAYS = "WHOPLAYS";
+    public static final String IS_NEW_GAME = "ISNEWGAME";
+    public static final String RED_BALL_COUNT = "REDBALLSCOUNT";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +176,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     protected void onPause() {
         super.onPause();
         Log.d("MATCH ACTIVITY", "metoda onPause");
+        zapiszDaneGry();
     }
 
     @Override
@@ -184,6 +189,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     protected void onResume() {
         super.onResume();
         Log.d("MATCH ACTIVITY", "metoda onResume");
+        wczytajDaneGry();
     }
 
     @Override
@@ -546,4 +552,51 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d("MATCH ACTIVITY", "metoda onSaveInstanceState");
+        outState.putInt(RED_BALL_COUNT, redBallCount);
+        outState.putInt(WHO_PLAYS, whoPlays);
+        int tmp;
+        for( int i = 0 ; i < howMuchPlayers ; ++i ){
+            tmp = i+1;
+            outState.putInt("P" + tmp + "SCORE", players[i].getPoints());
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.d("MATCH ACTIVITY", "metoda onRestoreInstanceState");
+        redBallCount = savedInstanceState.getInt(RED_BALL_COUNT, redBallCount);
+        whoPlays = savedInstanceState.getInt(WHO_PLAYS, whoPlays);
+        int tmp;
+        for( int i = 0 ; i < howMuchPlayers ; ++i ){
+            tmp = i+1;
+            players[i].setPoints(savedInstanceState.getInt("P" + tmp + "SCORE", players[i].getPoints()));
+            Log.d("MATCH ACTIVITY", "metoda onRestoreInstanceState,     GRACZ" + tmp + " pkt: " + players[i].getPoints());
+        }
+        wczytajDaneGry();
+
+    }
+
+    public void zapiszDaneGry(){
+        Log.d("MATCH ACTIVITY", "metoda zapiszDaneGry");
+        for( int i = 0 ; i < howMuchPlayers ; ++i ){
+            players[i].getPoints();
+        }
+
+    }
+    public void wczytajDaneGry(){
+        Log.d("MATCH ACTIVITY", "metoda wczytajDaneGry");
+
+        for( int i = 0 ; i < howMuchPlayers ; ++i ){
+            TextView tc = (TextView)views[i].findViewById(R.id.playerScore);
+            String str = Integer.toString(players[i].getPoints()) + " pts";
+            tc.setText(str);
+            Log.d("SCORE" , str);
+        }
+        setActivePlayer();
+    }
 }
