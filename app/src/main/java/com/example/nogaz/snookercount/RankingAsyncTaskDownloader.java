@@ -10,7 +10,7 @@ import java.net.URL;
  * Created by Nogaz on 14.02.2017.
  */
 
-public class RankingAsyncTaskDownloader extends AsyncTask<URL, void, JSONObject> {
+public class RankingAsyncTaskDownloader extends AsyncTask<URL, String, JSONObject> {
 
     @Override
     protected void onPreExecute() {
