@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import static android.support.v7.app.AlertDialog.*;
 
@@ -20,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
     Button new3PlayerFrameButton;
     Button leaderBoardsButton;
     Button creditsButton;
-    public static final int BUTTON2PLAYERS = 2131492944;
-    public static final int BUTTON3PLAYERS = 2131492945;
 
     String player1Name;
     String player2Name;
@@ -45,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
         int viewId = view.getId();
         matchIntent = new Intent(this, MatchActivity.class);
         Log.d("NUMER PRZYCISKUUUUU", String.valueOf(view.getId()));
-        if( viewId == BUTTON2PLAYERS ){
+        if( viewId == R.id.NewFrame2Players_button ){
             twoPlayerNameDialog();
 
-        }else if( viewId == BUTTON3PLAYERS ){
+        }else if( viewId == R.id.NewFrame3Players_button ){
             threePlayersNameDialog();
 
         }
@@ -78,11 +77,15 @@ public class MainActivity extends AppCompatActivity {
                 player1Name = p1Name.getText().toString();
                 player2Name = p2Name.getText().toString();
 
-                matchIntent.putExtra("PLAYERS", 2);
-                matchIntent.putExtra("P_1_NAME", player1Name);
-                matchIntent.putExtra("P_2_NAME", player2Name);
+                if( player1Name.length() == 0 || player2Name.length() == 0 ){
+                    Toast.makeText(getApplicationContext(), "Enter all players names!", Toast.LENGTH_SHORT).show();
+                }else {
+                    matchIntent.putExtra("PLAYERS", 2);
+                    matchIntent.putExtra("P_1_NAME", player1Name);
+                    matchIntent.putExtra("P_2_NAME", player2Name);
 
-                startActivity(matchIntent);
+                    startActivity(matchIntent);
+                }
             }
         });
         alertDialogBuilder.setNegativeButton(getApplicationContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener(){
@@ -110,12 +113,18 @@ public class MainActivity extends AppCompatActivity {
                 player2Name = p2Name.getText().toString();
                 player3Name = p3Name.getText().toString();
 
-                matchIntent.putExtra("PLAYERS", 3);
-                matchIntent.putExtra("P_1_NAME", player1Name);
-                matchIntent.putExtra("P_2_NAME", player2Name);
-                matchIntent.putExtra("P_3_NAME", player3Name);
+                if( player1Name.length() == 0 || player2Name.length() == 0 || player3Name.length() == 0 ){
+                    Toast.makeText(getApplicationContext(), "Enter all players names!", Toast.LENGTH_SHORT).show();
 
-                startActivity(matchIntent);
+                }else{
+                    matchIntent.putExtra("PLAYERS", 3);
+                    matchIntent.putExtra("P_1_NAME", player1Name);
+                    matchIntent.putExtra("P_2_NAME", player2Name);
+                    matchIntent.putExtra("P_3_NAME", player3Name);
+
+                    startActivity(matchIntent);
+                }
+
             }
         });
         alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){

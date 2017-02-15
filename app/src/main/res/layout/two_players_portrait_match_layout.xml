@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    android:background="@drawable/table_cloth">
+
+    <include
+        android:id="@+id/remaining_balls_layout"
+        layout="@layout/remaining_balls_gridlayout" />
+
+    <RelativeLayout
+        android:id="@+id/scoretable_player_1"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:layout_toRightOf="@+id/remaining_balls_layout"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/border">
+
+        <TextView
+            android:id="@+id/score_player_1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:text="147"
+            android:gravity="center"
+            android:textSize="46sp"
+            android:textStyle="bold"
+            android:background="@drawable/ball_red"
+            android:layout_centerVertical="true"
+            android:textColor="@color/abc_secondary_text_material_dark"
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/nickname_player_1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="NicknamEHE"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/score_player_1"
+            android:textStyle="bold|italic"
+            android:textSize="24sp" />
+        <TextView
+            android:id="@+id/break_player_1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="(147)"
+            android:gravity="center"
+            android:layout_below="@+id/nickname_player_1"
+            android:layout_toLeftOf="@id/score_player_1"
+            android:textSize="32sp"
+            android:textStyle="italic" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/scoretable_player_2"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:layout_toRightOf="@+id/remaining_balls_layout"
+        android:layout_below="@+id/scoretable_player_1"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/border">
+        <TextView
+            android:id="@+id/score_player_2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:text="147"
+            android:gravity="center"
+            android:textSize="46sp"
+            android:textStyle="bold"
+            android:background="@drawable/ball_red"
+            android:layout_centerVertical="true"
+            android:textColor="@color/abc_secondary_text_material_dark"
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/nickname_player_2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="NicknamEHE"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/score_player_2"
+            android:textStyle="bold|italic"
+            android:textSize="24sp" />
+        <TextView
+            android:id="@+id/break_player_2"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="(147)"
+            android:gravity="center"
+            android:layout_below="@+id/nickname_player_2"
+            android:layout_toLeftOf="@id/score_player_2"
+            android:textSize="32sp"
+            android:textStyle="italic" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_below="@+id/remaining_balls_layout"
+        android:layout_marginTop="15dp">
+
+        <ImageButton
+            android:id="@+id/button_add_point"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:src="@drawable/plus_green"
+            android:background="#00ffffff"
+            android:layout_centerInParent="true" />
+        <ImageButton
+            android:id="@+id/button_add_foul"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/minus_green"
+            android:background="#00ffffff"
+            android:layout_toLeftOf="@+id/button_add_point"
+            android:layout_centerVertical="true"/>
+        <ImageButton
+            android:id="@+id/button_next_player"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/next_green"
+            android:background="#00ffffff"
+            android:layout_toRightOf="@+id/button_add_point"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

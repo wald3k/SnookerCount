@@ -1,11 +1,9 @@
 package com.example.nogaz.snookercount;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Debug;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,27 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.StringTokenizer;
 
 public class MatchActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final int ADDPOINTID = 2131492976;
-    public static final int ADDFOULPOINT = 2131492977;
-    public static final int NEXTPLAYER = 2131492978;
+    public static final int ADDPOINTID = 2131492992;
+    public static final int ADDFOULPOINT = 2131492993;
+    public static final int NEXTPLAYER = 2131492994;
 
     public static final int RED_POINT = 2131492948 ;
     public static final int YELLOW_POINT = 2131492949 ;
@@ -64,6 +50,10 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     Button blueBallButton;
     Button pinkBallButton;
     Button blackBallButton;
+
+    ImageButton buttonAddPoint;
+    ImageButton buttonAddFoul;
+    ImageButton buttonNextPlayer;
 
     int howMuchPlayers;
     Player[] players;
@@ -107,14 +97,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("MATCH ACTIVITY", "metoda onCreate");
-        setContentView(R.layout.match_layout);
-/*
-        redBallButton = (Button)findViewById(R.id.red_ball);
-        yellowBallButton = (Button)findViewById(R.id.yellow_ball);
-        greenBallButton = (Button)findViewById(R.id.green_ball);
-        brownBallButton = (Button)findViewById(R.id.brown_ball);
-        blueBallButton = (Button)findViewById(R.id.blue_ball);
-        blackBallButton = (Button)findViewById(R.id.black_ball);*/
+        setContentView(R.layout.three_players_portrait_match_layout);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -123,50 +106,47 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         String p3Name;
         if( bundle != null ){
             howMuchPlayers = bundle.getInt("PLAYERS");
-            /*if( howMuchPlayers == 2 ){
-                p1Name = bundle.getString("P_1_NAME");
-                p2Name = bundle.getString("P_2_NAME");
-                players[0].setPlayerName(p1Name);
-                players[1].setPlayerName(p2Name);
-            }else if( howMuchPlayers == 3 ){
-                p1Name = bundle.getString("P_1_NAME");
-                p2Name = bundle.getString("P_2_NAME");
-                p3Name = bundle.getString("P_3_NAME");
-                players[0].setPlayerName(p1Name);
-                players[1].setPlayerName(p2Name);
-                players[2].setPlayerName(p3Name);
-            }*/
+
+        }
+        if( howMuchPlayers == 2 ){
+            setContentView(R.layout.two_players_portrait_match_layout);
+        }else if( howMuchPlayers == 3 ){
+            setContentView(R.layout.three_players_portrait_match_layout);
         }
 
         LayoutInflater vi = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewGroup insertPoint = (ViewGroup)findViewById(R.id.playersCardHolder);
         players = new Player[howMuchPlayers];
-        views = new View[howMuchPlayers];
+        //views = new View[howMuchPlayers];
         //playerViews = new PlayerView[howMuchPlayers];
         for( int i = 0 ; i < howMuchPlayers ; ++i ){
-            players[i] = new Player(i);
+
             int tmp = i+1;
+            players[i] = new Player(i);
             players[i].setPlayerName(bundle.getString("P_" + tmp + "_NAME"));
             //playerViews[i] = new PlayerView(getApplicationContext());
 
-
-            views[i] = vi.inflate(R.layout.player_frame_window, null);
-            insertPoint.addView(views[i]);
-            //insertPoint.addView(playerViews[i]);
-
-            TextView tv = (TextView)views[i].findViewById(R.id.playerId);
+            String playerNickViewId = "nickname_player_" + String.valueOf(tmp);
+            TextView tv = (TextView)findViewById(getResources().getIdentifier(playerNickViewId, "id", getPackageName()));
             tv.setText(players[i].getPlayerName());
 
-            views[i].findViewById(R.id.addPoint).setOnClickListener(this);
-            views[i].findViewById(R.id.foulPoint).setOnClickListener(this);
-            views[i].findViewById(R.id.nextPlayer).setOnClickListener(this);
-
-            /*views[i].findViewById(R.id.foulPoint);
-            views[i].findViewById(R.id.nextPlayer);*/
-
-
+            String playerLayoutStr = "scoretable_player_" + String.valueOf(tmp);
+            players[i].setPlayerLayoutView((RelativeLayout)findViewById(getResources().getIdentifier(playerLayoutStr, "id", getPackageName())));
+            String playerBreakTV = "break_player_" + String.valueOf(tmp);
+            players[i].setPlayerBreakTextView((TextView)findViewById(getResources().getIdentifier(playerBreakTV, "id", getPackageName())));
+            String playerScoreTV = "score_player_" + String.valueOf(tmp);
+            players[i].setPlayerScoreTextView((TextView)findViewById(getResources().getIdentifier(playerScoreTV, "id", getPackageName())));
+            Log.d("MATCH_ACTIVITY", "ustawiam pole o id: " + playerScoreTV);
+            players[i].updatePlayerViewPoints();
+            players[i].updatePlayerBreak(0);
         }
 
+        buttonAddFoul = (ImageButton)findViewById(R.id.button_add_foul);
+        buttonAddFoul.setOnClickListener(this);
+        buttonAddPoint = (ImageButton)findViewById(R.id.button_add_point);
+        buttonAddPoint.setOnClickListener(this);
+        buttonNextPlayer = (ImageButton)findViewById(R.id.button_next_player);
+        buttonNextPlayer.setOnClickListener(this);
         setActivePlayer();
 
 
@@ -224,29 +204,31 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         int viewId = v.getId();
         Log.d("MATCH ACTIVITY", "Wcisnieto przycisk: " + String.valueOf(v.getId()));
-        if( viewId == NEXTPLAYER ){
+        if( viewId == R.id.button_next_player ){
             nextPlayer();
             Log.d("CHANGE PLAYER", "kolej gracza nr " + whoPlays);
-        }else if( viewId == ADDPOINTID ){
+        }else if( viewId == R.id.button_add_point ){
             showAddPointPopup(v);
-        }else if( viewId == ADDFOULPOINT ){
+        }else if( viewId == R.id.button_add_foul ){
             showFoulPopup(v);
         }
     }
     public void setActivePlayer(){
         for( int i = 0 ; i < howMuchPlayers ; ++i ){
             if( i == whoPlays ){
-                views[i].setAlpha(1.0f);
-                views[i].setActivated(true);
-                views[i].findViewById(R.id.addPoint).setOnClickListener(this);
-                views[i].findViewById(R.id.nextPlayer).setOnClickListener(this);
-                views[i].findViewById(R.id.foulPoint).setOnClickListener(this);
+                players[i].setActive();
+//                views[i].setAlpha(1.0f);
+//                views[i].setActivated(true);
+//                views[i].findViewById(R.id.addPoint).setOnClickListener(this);
+//                views[i].findViewById(R.id.nextPlayer).setOnClickListener(this);
+//                views[i].findViewById(R.id.foulPoint).setOnClickListener(this);
             }else{
-                views[i].setAlpha(0.5f);
-                views[i].setActivated(false);
-                views[i].findViewById(R.id.addPoint).setOnClickListener(null);
-                views[i].findViewById(R.id.nextPlayer).setOnClickListener(null);
-                views[i].findViewById(R.id.foulPoint).setOnClickListener(null);
+                players[i].setUnactive();
+//                views[i].setAlpha(0.5f);
+//                views[i].setActivated(false);
+//                views[i].findViewById(R.id.addPoint).setOnClickListener(null);
+//                views[i].findViewById(R.id.nextPlayer).setOnClickListener(null);
+//                views[i].findViewById(R.id.foulPoint).setOnClickListener(null);
             }
 
         }
@@ -259,18 +241,13 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     }
     public void updatePlayerPoints(int player, int points){
         players[player].addPoints(points);
-        TextView tc = (TextView)views[player].findViewById(R.id.playerScore);
-        Log.d("SCORE" , tc.toString());
-        String str = Integer.toString(players[player].getPoints()) + " pts";
-        tc.setText(str);
+        players[player].updatePlayerViewPoints();
     }
     public void updateFoulPoints(int player, int points){
         for( int i = 0 ; i < howMuchPlayers ; ++i ){
             if( i != player ){
                 players[i].addPoints(points);
-                String str = Integer.toString(players[i].getPoints()) + " pts";
-                TextView tc = (TextView)views[i].findViewById(R.id.playerScore);
-                tc.setText(str);
+                players[i].updatePlayerViewPoints();
             }
         }
     }
@@ -292,15 +269,21 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View v) {
                 int viewId = v.getId();
+
                 Log.d("ADDPOINT DIALOG", "nr przycisku " + viewId);
                 switch (viewId){
-                    case RED_POINT:
+                    case R.id.red_ball:
                         Log.d("ADD POINTS", "Punkty za bile czerwona +" + redBallPoint);
                         updatePlayerPoints(whoPlays, redBallPoint);
                         redBallCount--;
+                        String buttonId = "remained_redBall_" + (15-redBallCount);
+                        int redBallNumberID = getResources().getIdentifier(buttonId, "id", getPackageName());
+                        ImageView redBallImgToDeactivate = (ImageView)findViewById(redBallNumberID);
+                        redBallImgToDeactivate.setActivated(false);
+                        redBallImgToDeactivate.setAlpha(0.5f);
                         colorBallMove = true;
                         break;
-                    case YELLOW_POINT:
+                    case R.id.yellow_ball:
                         Log.d("ADD POINTS", "Punkty za bile zolta +" + yellowBallPoint);
                         updatePlayerPoints(whoPlays, yellowBallPoint);
                         if( redBallCount <= 0 && colorBallMove == false ){
@@ -308,7 +291,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                         }
                         colorBallMove = false;
                         break;
-                    case GREEN_POINT:
+                    case R.id.green_ball:
                         Log.d("ADD POINTS", "Punkty za bile zielona +" + greenBallPoint);
                         updatePlayerPoints(whoPlays, greenBallPoint);
                         if( redBallCount <= 0 && colorBallMove == false ){
@@ -316,7 +299,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                         }
                         colorBallMove = false;
                         break;
-                    case BROWN_POINT:
+                    case R.id.brown_ball:
                         Log.d("ADD POINTS", "Punkty za bile brazowa +" + brownBallPoint);
                         updatePlayerPoints(whoPlays, brownBallPoint);
                         if( redBallCount <= 0 && colorBallMove == false ){
@@ -324,7 +307,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                         }
                         colorBallMove = false;
                         break;
-                    case BLUE_POINT:
+                    case R.id.blue_ball:
                         Log.d("ADD POINTS", "Punkty za bile niebieska +" + blueBallPoint);
                         updatePlayerPoints(whoPlays, blueBallPoint);
                         if( redBallCount <= 0 && colorBallMove == false ){
@@ -332,7 +315,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                         }
                         colorBallMove = false;
                         break;
-                    case PINK_POINT:
+                    case R.id.pink_ball:
                         Log.d("ADD POINTS", "Punkty za bile rozowa +" + pinkBallPoint);
                         updatePlayerPoints(whoPlays, pinkBallPoint);
                         if( redBallCount <= 0 && colorBallMove == false ){
@@ -340,7 +323,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                         }
                         colorBallMove = false;
                         break;
-                    case BLACK_POINT:
+                    case R.id.black_ball:
                         Log.d("ADD POINTS", "Punkty za bile czarna +" + blackBallPoint);
                         updatePlayerPoints(whoPlays, blackBallPoint);
                         if( redBallCount <= 0 && colorBallMove == false ){
@@ -444,19 +427,19 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                 Log.d("ADD_FOUL_POINT DIALOG", "nr przycisku " + viewId);
 
                 switch (viewId){
-                    case WHITE_FOUL:
+                    case R.id.white_ball_foul:
                         updateFoulPoints(whoPlays, whiteFoulPoint);
                         nextPlayer();
                         break;
-                    case BLUE_FOUL:
+                    case R.id.blue_ball_foul:
                         updateFoulPoints(whoPlays, blueFoulPoint);
                         nextPlayer();
                         break;
-                    case PINK_FOUL:
+                    case R.id.pink_ball_foul:
                         updateFoulPoints(whoPlays, pinkFoulPoint);
                         nextPlayer();
                         break;
-                    case BLACK_FOUL:
+                    case R.id.black_ball_foul:
                         updateFoulPoints(whoPlays, blackFoulPoint);
                         nextPlayer();
                         break;
@@ -592,10 +575,8 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         Log.d("MATCH ACTIVITY", "metoda wczytajDaneGry");
 
         for( int i = 0 ; i < howMuchPlayers ; ++i ){
-            TextView tc = (TextView)views[i].findViewById(R.id.playerScore);
-            String str = Integer.toString(players[i].getPoints()) + " pts";
-            tc.setText(str);
-            Log.d("SCORE" , str);
+            players[i].updatePlayerViewPoints();
+            players[i].updatePlayerBreak();
         }
         setActivePlayer();
     }
