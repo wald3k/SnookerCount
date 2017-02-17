@@ -274,12 +274,13 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                     case R.id.red_ball:
                         Log.d("ADD POINTS", "Punkty za bile czerwona +" + redBallPoint);
                         updatePlayerPoints(whoPlays, redBallPoint);
-                        redBallCount--;
-                        String buttonId = "remained_redBall_" + (15-redBallCount);
-                        int redBallNumberID = getResources().getIdentifier(buttonId, "id", getPackageName());
-                        ImageView redBallImgToDeactivate = (ImageView)findViewById(redBallNumberID);
-                        redBallImgToDeactivate.setActivated(false);
-                        redBallImgToDeactivate.setAlpha(0.5f);
+//                        redBallCount--;
+//                        String buttonId = "remained_redBall_" + (15-redBallCount);
+//                        int redBallNumberID = getResources().getIdentifier(buttonId, "id", getPackageName());
+//                        ImageView redBallImgToDeactivate = (ImageView)findViewById(redBallNumberID);
+//                        redBallImgToDeactivate.setActivated(false);
+//                        redBallImgToDeactivate.setAlpha(0.5f);
+                        removeOneRedBallFromMeter();
                         colorBallMove = true;
                         break;
                     case R.id.yellow_ball:
@@ -464,6 +465,16 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         button.setAlpha(0.5f);
         button.setOnClickListener(null);
     }
+    public void removeOneRedBallFromMeter(){
+        redBallCount--;
+        if( redBallCount < 0 ){ redBallCount = 0; }
+        String buttonId = "remained_redBall_" + (15-redBallCount);
+        int redBallNumberID = getResources().getIdentifier(buttonId, "id", getPackageName());
+        ImageView redBallImgToDeactivate = (ImageView)findViewById(redBallNumberID);
+        redBallImgToDeactivate.setActivated(false);
+        redBallImgToDeactivate.setAlpha(0.5f);
+    }
+
     public void finishGame(View view){
         Log.d("MATCH ACTIVITY", "wejscie do metody finishGame");
 
@@ -500,10 +511,11 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         return winner;
     }
     public void decrementRedBallCount(){
-        redBallCount--;
-        if( redBallCount < 0 ){
-            redBallCount = 0;
-        }
+//        redBallCount--;
+//        if( redBallCount < 0 ){
+//            redBallCount = 0;
+//        }
+        removeOneRedBallFromMeter();
     }
     public void showTable(){
         Log.d("MATCH ACTIVITY", "wejscie do metody showTable");
