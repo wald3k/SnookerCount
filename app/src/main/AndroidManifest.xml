@@ -3,6 +3,7 @@
     package="com.example.nogaz.snookercount">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/launcher"
@@ -25,6 +26,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".CreditsActivity"/>
         <activity android:name=".LeaderboardsActivity"></activity>
+        <activity android:name=".EventsListActivity"></activity>
         <receiver android:name=".connection.ConnectionReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>

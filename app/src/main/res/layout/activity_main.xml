@@ -34,6 +34,12 @@
             android:layout_width="@dimen/big_button_dimen"
             android:layout_height="@dimen/medium_button_dimen"
             android:onClick="showLeaderboards"/>
+        <Button
+            android:id="@+id/EventList_button"
+            android:text="@string/eventList"
+            android:layout_width="@dimen/big_button_dimen"
+            android:layout_height="@dimen/medium_button_dimen"
+            android:onClick="showEventList"/>
 
         <Button
             android:id="@+id/Credits_button"

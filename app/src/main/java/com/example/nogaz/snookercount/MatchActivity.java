@@ -97,7 +97,6 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("MATCH ACTIVITY", "metoda onCreate");
-        setContentView(R.layout.three_players_portrait_match_layout);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();

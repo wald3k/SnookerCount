@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Button new2PlayerFrameButton;
     Button new3PlayerFrameButton;
     Button leaderBoardsButton;
+    Button eventListButton;
     Button creditsButton;
 
     String player1Name;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         new2PlayerFrameButton = (Button)findViewById(R.id.NewFrame2Players_button);
         new2PlayerFrameButton = (Button)findViewById(R.id.NewFrame3Players_button);
         leaderBoardsButton = (Button)findViewById(R.id.LeaderBoards_button);
+        eventListButton = (Button)findViewById(R.id.EventList_button);
         creditsButton = (Button)findViewById(R.id.Credits_button);
     //// TODO: 2017-02-08 Create option menu/button: cleaning database/ setting rank display limits etc.
 
@@ -59,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void showCredits(View view){
         Intent intent = new Intent(this, CreditsActivity.class);
+        startActivity(intent);
+    }
+    public void showEventList(View view){
+        Intent intent = new Intent(this, EventsListActivity.class);
         startActivity(intent);
     }
 

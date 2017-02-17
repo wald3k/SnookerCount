@@ -25,4 +25,5 @@
     <string name="hasWon">wygrał!</string>
     <string name="resultAchieved">Wynik: </string>
     <string name="okSaveScore">Ok, zapisz wynik!</string>
+    <string name="eventList">Wydarzenia</string>
 </resources>
