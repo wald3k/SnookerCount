@@ -3,7 +3,8 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="@dimen/big_button_dimen"
     android:background="@color/ripple_material_light"
-    android:gravity="center">
+    android:gravity="center"
+    android:weightSum="7">
 
     <ImageButton
         android:id="@+id/red_ball"
@@ -13,7 +14,8 @@
         android:layout_margin="4dp"
         android:src="@drawable/ball_red"
         android:scaleType="fitCenter"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="true"
+        android:layout_weight="1"/>
     <ImageButton
         android:id="@+id/yellow_ball"
         android:padding="2dp"
@@ -22,7 +24,8 @@
         android:src="@drawable/ball_yellow"
         android:layout_margin="4dp"
         android:scaleType="fitCenter"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:layout_weight="1"/>
     <ImageButton
         android:id="@+id/green_ball"
         android:padding="2dp"
@@ -31,7 +34,8 @@
         android:src="@drawable/ball_green"
         android:layout_margin="4dp"
         android:scaleType="fitCenter"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:layout_weight="1"/>
     <ImageButton
         android:id="@+id/brown_ball"
         android:padding="2dp"
@@ -40,7 +44,8 @@
         android:src="@drawable/ball_brown"
         android:layout_margin="4dp"
         android:scaleType="fitCenter"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:layout_weight="1"/>
     <ImageButton
         android:id="@+id/blue_ball"
         android:padding="2dp"
@@ -49,7 +54,8 @@
         android:src="@drawable/ball_blue"
         android:layout_margin="4dp"
         android:scaleType="fitCenter"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:layout_weight="1"/>
     <ImageButton
         android:id="@+id/pink_ball"
         android:padding="2dp"
@@ -58,7 +64,8 @@
         android:src="@drawable/ball_pink"
         android:layout_margin="4dp"
         android:scaleType="fitCenter"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:layout_weight="1"/>
     <ImageButton
         android:id="@+id/black_ball"
         android:padding="2dp"
@@ -67,6 +74,7 @@
         android:src="@drawable/ball_black"
         android:layout_margin="4dp"
         android:scaleType="fitCenter"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:layout_weight="1"/>
 
 </LinearLayout>

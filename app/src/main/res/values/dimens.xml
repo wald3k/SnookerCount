@@ -3,7 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="button_dimen">48dp</dimen>
+    <dimen name="button_dimen_width">0dp</dimen>
+    <dimen name="button_dimen_height">45dp</dimen>
     <dimen name="playerCardButtonsHeight">64dp</dimen>
-    <dimen name="medium_button_dimen">96dp</dimen>
-    <dimen name="big_button_dimen">128dp</dimen>
+    <dimen name="medium_button_dimen">80sp</dimen>
+    <dimen name="big_button_dimen">256sp</dimen>
 </resources>

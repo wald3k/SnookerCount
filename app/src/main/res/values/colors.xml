@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorNapisPrim">#d7d7d7</color>
+    <color name="colorBallPoints">#ffffff</color>
+    <color name="colorBallFoul">#ff0000</color>
 </resources>

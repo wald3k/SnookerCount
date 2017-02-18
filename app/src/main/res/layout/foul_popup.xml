@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:gravity="center"
     android:layout_height="match_parent"
-    android:background="@color/ripple_material_light">
+    android:background="@color/ripple_material_light"
+    android:weightSum="4">
 
         <ImageButton
             android:id="@+id/white_ball_foul"
@@ -14,7 +15,8 @@
             android:src="@drawable/ball_white"
             android:layout_margin="4dp"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true"
+            android:layout_weight="1"/>
         <ImageButton
             android:id="@+id/blue_ball_foul"
             android:padding="2dp"
@@ -23,7 +25,8 @@
             android:src="@drawable/ball_blue"
             android:layout_margin="4dp"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true"
+            android:layout_weight="1"/>
         <ImageButton
             android:id="@+id/pink_ball_foul"
             android:padding="2dp"
@@ -32,7 +35,8 @@
             android:src="@drawable/ball_pink"
             android:layout_margin="4dp"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true"
+            android:layout_weight="1"/>
         <ImageButton
             android:id="@+id/black_ball_foul"
             android:padding="2dp"
@@ -41,6 +45,7 @@
             android:src="@drawable/ball_black"
             android:layout_margin="4dp"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true"
+            android:layout_weight="1"/>
 
 </LinearLayout>

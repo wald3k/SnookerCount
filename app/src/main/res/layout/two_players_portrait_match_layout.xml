@@ -96,30 +96,32 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_below="@+id/remaining_balls_layout"
-        android:layout_marginTop="15dp">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/remaining_balls_layout"
+        android:layout_marginTop="-30dp">
 
         <ImageButton
             android:id="@+id/button_add_point"
-            android:layout_width="105dp"
-            android:layout_height="105dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/plus_green"
             android:background="#00ffffff"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:layout_marginRight="50dp"/>
         <ImageButton
             android:id="@+id/button_add_foul"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/minus_green"
             android:background="#00ffffff"
             android:layout_toLeftOf="@+id/button_add_point"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dp"/>
         <ImageButton
             android:id="@+id/button_next_player"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/next_green"
             android:background="#00ffffff"
             android:layout_toRightOf="@+id/button_add_point"
