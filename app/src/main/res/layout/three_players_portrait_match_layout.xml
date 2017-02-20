@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +11,6 @@
     <include
         android:id="@+id/remaining_balls_layout"
         layout="@layout/remaining_balls_gridlayout" />
-
     <RelativeLayout
         android:id="@+id/scoretable_player_1"
         android:layout_width="match_parent"
@@ -134,6 +136,7 @@
             android:textSize="32sp"
             android:textStyle="italic" />
         </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -169,3 +172,4 @@
 
 
 </RelativeLayout>
+</ScrollView>
